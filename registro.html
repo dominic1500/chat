@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="contenedor">
+        <h2>guardar integrantes</h2>
+        <input
+         type="text"
+         id="nombre"
+         placeholder="escribe el nombre del integrante"
+         >
+         <br>
+         <button onclick="guardarNombre()">guardar</button>
+         <h3>integrantes guardados</h3>
+         <ul id="lista"></ul>
+    </div>
+    <script>
+        let integrantes = JSON.parse(
+            localStorage.getItem("integrantes")
+        )||[]
+        function mostrarIntegrantes(){
+            const lista = document.getElementById("lista");
+            lista.innerHTML = "";
+            
+        integrantes.forEach(nombre => {
+            const elemento = document.getElementById("li");
+            elemento.textContent = nombre;
+            lista.appendChild(elemento);
+            
+        });
+
+    function guardarNombre() {
+        const input = document.getElementById("nombre");
+        const nombre = input.value.trim();
+
+        if (nombre === "") {
+            alert("Escribe un nombre primero");
+            return;
+        }
+
+        integrantes.push(nombre);
+
+        localStorage.setItem(
+            "integrantes",
+            JSON.stringify(integrantes)
+        );
+
+        input.value = "";
+        mostrarIntegrantes();
+    }
+
+    mostrarIntegrantes();
+
+    }
+    </script>
+</body>
+</html>
